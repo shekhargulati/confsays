@@ -5,7 +5,7 @@
     var conferenceId = $("#conferenceId").val();
     console.log("ConferenceId: " + conferenceId);
 
-    var ctx = "/app/api/conferences/" + conferenceId;
+    var ctx = "/confsays-1.0/app/api/conferences/" + conferenceId;
 
     console.log("Context: " + ctx);
 
