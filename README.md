@@ -1,4 +1,4 @@
-ConfSays
+ConfSays [![Build Status](https://travis-ci.org/shekhargulati/confsays.png)](https://travis-ci.org/shekhargulati/confsays)
 ================
 
 A Java EE 7 application to track twitter interactions happening during a conference.
