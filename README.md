@@ -11,9 +11,9 @@ A Java EE 7 application to track twitter interactions happening during a confere
 
 * Create a Wildfly application using OpenShift Online web console.
 
-* Add MySQL 5 cartridge
+* Add MySQL 5.5 cartridge
 ```
-$ rhc cartridge-add --app <app_name> mysql-5.1
+$ rhc cartridge-add --app <app_name> mysql-5.5
 ```
 * Clone the application to local machine.
 ```
@@ -21,7 +21,7 @@ $ rhc git-clone <app-name>
 ```
 * Pull the source code from Git repository
 ```
-$ git remote add upstream -m master https://github.com/shekhargulati/confsays-javaee7.git
+$ git remote add upstream -m master https://github.com/shekhargulati/confsays.git
 $ git pull -s recursive -X theirs upstream master
 ```
 * Create a new twitter application https://dev.twitter.com/
