@@ -41,10 +41,10 @@ public class Conference {
     @ImageUrl
     private String bannerImgUrl;
 
-    @Future
+    @NotNull
     private Date startDate;
 
-    @Future
+    @NotNull
     private Date endDate;
 
     @NotNull
