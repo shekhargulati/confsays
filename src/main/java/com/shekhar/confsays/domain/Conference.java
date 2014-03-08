@@ -1,63 +1,101 @@
 package com.shekhar.confsays.domain;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.URL;
+
+import com.shekhar.confsays.bean_validation.ImageUrl;
+
+@Entity
 public class Conference {
 
-    private String id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    private String title;
+    @NotNull
+    private String name;
 
-    private String bannerImgUrl;
-
+    @Size(max = 4000)
     private String description;
 
-    private List<String> hashtags;
+    @Column(updatable = false)
+    private Date createdOn = new Date();
 
+    private boolean track = false;
+
+    @ImageUrl
+    private String bannerImgUrl;
+
+    @Future
     private Date startDate;
 
+    @Future
     private Date endDate;
 
+    @NotNull
+    @URL
     private String conferenceUrl;
 
-    private boolean track = true;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "confHashtags", joinColumns = @JoinColumn(name = "conference_id"))
+    @Column(name = "hashtag")
+    @NotNull
+    @Size(max = 5)
+    private Set<String> hashtags = new HashSet<>();
 
-    private String agendaUrl;
-    private String urlFragment;
-
-    private List<String> speakers;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "confSpeakers", joinColumns = @JoinColumn(name = "conference_id"))
+    @Column(name = "speaker")
+    @NotNull
+    @Size(max = 100)
+    private Set<String> speakers = new HashSet<>();
 
     public Conference() {
     }
 
-    public Conference(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
-
-    public String getAgendaUrl() {
-        return agendaUrl;
-    }
-
-    public void setAgendaUrl(String agendaUrl) {
-        this.agendaUrl = agendaUrl;
-    }
-
-    public String getBannerImgUrl() {
-        return bannerImgUrl;
-    }
-
-    public void setBannerImgUrl(String bannerImgUrl) {
-        this.bannerImgUrl = bannerImgUrl;
-    }
-
-    public String getConferenceUrl() {
-        return conferenceUrl;
-    }
-
-    public void setConferenceUrl(String conferenceUrl) {
+    public Conference(String name, Date startDate, Date endDate, String conferenceUrl) {
+        super();
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.conferenceUrl = conferenceUrl;
+    }
+
+    public Conference(Long id, String name, Set<String> hashtags) {
+        this.id = id;
+        this.name = name;
+        this.hashtags = hashtags;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -68,36 +106,12 @@ public class Conference {
         this.description = description;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getCreatedOn() {
+        return createdOn;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public List<String> getHashtags() {
-        return hashtags;
-    }
-
-    public void setHashtags(List<String> hashtags) {
-        this.hashtags = hashtags;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
     }
 
     public boolean isTrack() {
@@ -108,29 +122,60 @@ public class Conference {
         this.track = track;
     }
 
-    public String getId() {
-        return id;
+    public String getBannerImgUrl() {
+        return bannerImgUrl;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setBannerImgUrl(String bannerImgUrl) {
+        this.bannerImgUrl = bannerImgUrl;
     }
 
-    public void setUrlFragment(String urlFragment) {
-        this.urlFragment = urlFragment;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public String getUrlFragment() {
-        return urlFragment;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public List<String> getSpeakers() {
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getConferenceUrl() {
+        return conferenceUrl;
+    }
+
+    public void setConferenceUrl(String conferenceUrl) {
+        this.conferenceUrl = conferenceUrl;
+    }
+
+    public void setHashtags(Set<String> hashtags) {
+        this.hashtags = hashtags;
+    }
+
+    public Set<String> getHashtags() {
+        return hashtags;
+    }
+
+    public void setSpeakers(Set<String> speakers) {
+        this.speakers = speakers;
+    }
+
+    public Set<String> getSpeakers() {
         return speakers;
     }
 
-    public void setSpeakers(List<String> speakers) {
-        this.speakers = speakers;
+    @Override
+    public String toString() {
+        return "Conference [id=" + id + ", name=" + name + ", description=" + description + ", createdOn=" + createdOn
+                + ", track=" + track + ", bannerImgUrl=" + bannerImgUrl + ", startDate=" + startDate + ", endDate="
+                + endDate + ", conferenceUrl=" + conferenceUrl + ", hashtags=" + hashtags + ", speakers=" + speakers
+                + "]";
     }
+
 }
-
-

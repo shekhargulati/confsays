@@ -28,7 +28,7 @@ body {
 .sidebar-nav {
     position: absolute;
     top: 0;
-    width: 250px;
+    width: 200px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -91,7 +91,7 @@ body {
     padding: 20px;
 }
 
-@media (max-width:767px) {
+@media (max-width:450px) {
 
     #wrapper {
         padding-left: 0;
