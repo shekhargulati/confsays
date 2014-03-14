@@ -15,25 +15,7 @@ angular.module("confsays", ["confsays.services"]).
             .when('/conferences/new', {templateUrl: '../views/conferences/create.html', controller: ConferenceCreateController})
             .when('/conferences/:conferenceId', {templateUrl: '../views/conferences/detail.html', controller: ConferenceDetailController})
             .when('/conferences/edit/:conferenceId', {templateUrl: '../views/conferences/create.html', controller: ConferenceDetailController});
-    }).directive(
-    'dateInput',
-    function (dateFilter) {
-        return {
-            require: 'ngModel',
-            template: '<input type="date"></input>',
-            replace: true,
-            link: function (scope, elm, attrs, ngModelCtrl) {
-                ngModelCtrl.$formatters.unshift(function (modelValue) {
-                    return dateFilter(modelValue, 'yyyy-MM-dd');
-                });
-
-                ngModelCtrl.$parsers.unshift(function (viewValue) {
-                    return new Date(viewValue);
-                });
-            }
-        };
     });
-;
 
 function ConferenceListController($scope, Conference) {
     $scope.conferences = Conference.query();
